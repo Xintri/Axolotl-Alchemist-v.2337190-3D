@@ -1,44 +1,53 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
 {
-    [Header("Ajustes de Movimiento")]
     public float velocidad = 10f;
     public float fuerzaSalto = 8f;
-    public float gravedad = -20f; // Una gravedad de -20f suele dar un salto menos "flotante"
+    public float gravedad = -20f; 
     public float suavizadoRotacion = 10f;
 
-    private InputSystem_Actions Inputs;
+    [Header("Detección de Suelo")]
+    public Transform piesTransform; 
+    public float distanciaRayo = 0.2f;
+    public LayerMask capaSuelo;
+    
+    private bool estaEnSuelo = false;
+
+    public float tiempoBufferSalto = 0.2f; 
+    private float contadorBufferSalto;
+
     private CharacterController controller;
     private Vector3 velocidadVertical;
     private Transform camaraTransform;
 
     void Awake()
     {
-        Inputs = new InputSystem_Actions();
         controller = GetComponent<CharacterController>();
-        
-        // Cacheamos la referencia de la cámara para no usar Camera.main en el Update
-        if (Camera.main != null)
-            camaraTransform = Camera.main.transform;
+        if (Camera.main != null) camaraTransform = Camera.main.transform;
     }
-
-    void OnEnable() { Inputs.Player.Enable(); }
-    void OnDisable() { Inputs.Player.Disable(); }
 
     void Update()
     {
-        Moviminto();
+        //buffer
+        if (Input.GetButtonDown("Jump"))
+        {
+            contadorBufferSalto = tiempoBufferSalto;
+        }
+        else if (contadorBufferSalto > 0)
+        {
+            contadorBufferSalto -= Time.deltaTime;
+        }
+
+        Movimiento();
         Salto();
     }
 
-    void Moviminto()
+    void Movimiento()
     {
-        // 1. Obtener inputs
-        Vector2 inputVector = Inputs.Player.Move.ReadValue<Vector2>();
+        float moveX = Input.GetAxis("Horizontal");
+        float moveZ = Input.GetAxis("Vertical");
 
-        // 2. Calcular direcciones relativas a la cámara
         Vector3 forward = camaraTransform.forward;
         Vector3 right = camaraTransform.right;
 
@@ -47,15 +56,11 @@ public class Player : MonoBehaviour
         forward.Normalize();
         right.Normalize();
 
-        // 3. Dirección final (Normalizada para evitar velocidad extra en diagonales)
-        Vector3 direccionFinal = (forward * inputVector.y + right * inputVector.x);
+        Vector3 direccionFinal = (forward * moveZ + right * moveX);
 
         if (direccionFinal.magnitude >= 0.1f)
         {
-            // Aplicar el movimiento
             controller.Move(direccionFinal.normalized * velocidad * Time.deltaTime);
-
-            // 4. Rotación: El personaje mira hacia la dirección del movimiento
             Quaternion rotacionObjetivo = Quaternion.LookRotation(direccionFinal);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotacionObjetivo, suavizadoRotacion * Time.deltaTime);
         }
@@ -63,26 +68,27 @@ public class Player : MonoBehaviour
 
     void Salto()
     {
-        if (controller.isGrounded)
-        {
-            // Pequeña fuerza negativa para mantener el isGrounded estable
-            if (velocidadVertical.y < 0)
-            {
-                velocidadVertical.y = -2f;
-            }
 
-            // Lógica de Salto
-            if (Inputs.Player.Jump.WasPressedThisFrame())
+        Vector3 origenRayo = piesTransform != null ? piesTransform.position : transform.position;
+
+        estaEnSuelo = Physics.Raycast(origenRayo, Vector3.down, distanciaRayo, capaSuelo);
+
+        // Dibuja el rayo para debuguear
+        Debug.DrawRay(origenRayo, Vector3.down * distanciaRayo, estaEnSuelo ? Color.green : Color.red);
+
+        if (estaEnSuelo)
+        {
+            if (velocidadVertical.y < 0)
+                velocidadVertical.y = -2f;
+
+            if (contadorBufferSalto > 0)
             {
-                // El Character Controller no usa AddForce, así que modificamos la velocidad directamente
                 velocidadVertical.y = fuerzaSalto;
+                contadorBufferSalto = 0; 
             }
         }
 
-        // Aplicamos gravedad acumulativa
         velocidadVertical.y += gravedad * Time.deltaTime;
-
-        // Movimiento vertical final
         controller.Move(velocidadVertical * Time.deltaTime);
-    }
+    }   
 }
