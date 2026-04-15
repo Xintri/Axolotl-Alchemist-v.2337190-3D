@@ -45,8 +45,8 @@ public class Player : MonoBehaviour
 
     void Movimiento()
     {
-        float moveX = Input.GetAxis("Horizontal");
-        float moveZ = Input.GetAxis("Vertical");
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveZ = Input.GetAxisRaw("Vertical");
 
         Vector3 forward = camaraTransform.forward;
         Vector3 right = camaraTransform.right;
