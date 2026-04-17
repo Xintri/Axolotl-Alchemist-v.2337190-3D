@@ -1,22 +1,22 @@
+using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     public float velocidad = 10f;
     public float fuerzaSalto = 8f;
     public float gravedad = -20f; 
-    public float suavizadoRotacion = 10f;
-
-    [Header("Detección de Suelo")]
+    public float suavizadoRotacion = 10f;    
     public Transform piesTransform; 
     public float distanciaRayo = 0.2f;
     public LayerMask capaSuelo;
-    
-    private bool estaEnSuelo = false;
-
     public float tiempoBufferSalto = 0.2f; 
-    private float contadorBufferSalto;
+    public float vida = 100.0f;
+    public Slider sliderVida;
 
+    private bool estaEnSuelo = false;
+    private float contadorBufferSalto;
     private CharacterController controller;
     private Vector3 velocidadVertical;
     private Transform camaraTransform;
@@ -41,6 +41,17 @@ public class Player : MonoBehaviour
 
         Movimiento();
         Salto();
+
+        sliderVida.value = Mathf.Max(0, vida);
+        
+        if(vida <= 0)
+        {
+            vida = 0;
+        }
+
+        sliderVida.value = vida;
+
+
     }
 
     void Movimiento()
@@ -91,4 +102,5 @@ public class Player : MonoBehaviour
         velocidadVertical.y += gravedad * Time.deltaTime;
         controller.Move(velocidadVertical * Time.deltaTime);
     }   
+
 }
