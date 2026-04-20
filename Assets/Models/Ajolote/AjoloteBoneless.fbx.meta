@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 511b438f5fa1c584fa7e7cbf2eb38da5
+guid: e0d484e9e99811e43aca4874ec23b4dc
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -7,63 +7,23 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material.001
+      name: Cara
     second: {fileID: 2100000, guid: 9ad71ed6a8af5e24c93b02a1fd5bee86, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material.002
+      name: Cuerpo
     second: {fileID: 2100000, guid: 59e2994417fa77840b010182247baa29, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.003
-    second: {fileID: 2100000, guid: 10ab1d2ffc15549409c07262c3253d48, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.004
-    second: {fileID: 2100000, guid: 35a942eab641e4b45b4a78d45a041007, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.005
-    second: {fileID: 2100000, guid: fce1e732c6e764b4282ebe20f24f9938, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.006
-    second: {fileID: 2100000, guid: ecd1e74750ad6f24385398465496591c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.007
-    second: {fileID: 2100000, guid: 514eaeb83cb5eee40a03cddae53bf47e, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.008
-    second: {fileID: 2100000, guid: 363daebb6622f0040bb789cddcf25d54, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.009
-    second: {fileID: 2100000, guid: 77fbbced86f8315418876af9d7b1fa26, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.010
-    second: {fileID: 2100000, guid: af188e11647288b48a58a5f29f0c4d82, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.011
-    second: {fileID: 2100000, guid: 16df9b3caf3440946bfae83c2a50b627, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: StingrayPBS1
     second: {fileID: 2100000, guid: accc21367fd77124183440ba45dd6e77, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: branquea
+    second: {fileID: 2100000, guid: eb42d560404de614dabfc96bc8b47c13, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

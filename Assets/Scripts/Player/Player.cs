@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    Animator anim;
+
     public float velocidad = 10f;
     public float fuerzaSalto = 8f;
     public float gravedad = -20f; 
@@ -25,6 +27,11 @@ public class Player : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         if (Camera.main != null) camaraTransform = Camera.main.transform;
+    }
+
+    void Start() 
+    {
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -71,9 +78,17 @@ public class Player : MonoBehaviour
 
         if (direccionFinal.magnitude >= 0.1f)
         {
+            //Empezar animacion
+            anim.SetBool("isMoving", true);
+
             controller.Move(direccionFinal.normalized * velocidad * Time.deltaTime);
             Quaternion rotacionObjetivo = Quaternion.LookRotation(direccionFinal);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotacionObjetivo, suavizadoRotacion * Time.deltaTime);
+        }
+        else
+        {
+            //Terminar animacion
+            anim.SetBool("isMoving", false);
         }
     }
 
