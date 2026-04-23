@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 174236132}
   - component: {fileID: 174236131}
   - component: {fileID: 174236130}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: rampa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1234,7 +1234,7 @@ GameObject:
   - component: {fileID: 728583895}
   - component: {fileID: 728583894}
   - component: {fileID: 728583893}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2298,7 +2298,7 @@ GameObject:
   - component: {fileID: 2027600629}
   - component: {fileID: 2027600628}
   - component: {fileID: 2027600627}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}

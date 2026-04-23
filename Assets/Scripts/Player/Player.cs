@@ -99,6 +99,8 @@ public class Player : MonoBehaviour
 
         estaEnSuelo = Physics.Raycast(origenRayo, Vector3.down, distanciaRayo, capaSuelo);
 
+        anim.SetBool("isGrounded", estaEnSuelo);
+
         // Dibuja el rayo para debuguear
         Debug.DrawRay(origenRayo, Vector3.down * distanciaRayo, estaEnSuelo ? Color.green : Color.red);
 
@@ -109,6 +111,9 @@ public class Player : MonoBehaviour
 
             if (contadorBufferSalto > 0)
             {
+                //Animaicon de salto
+                anim.SetTrigger("Jump");
+
                 velocidadVertical.y = fuerzaSalto;
                 contadorBufferSalto = 0; 
             }
@@ -117,5 +122,4 @@ public class Player : MonoBehaviour
         velocidadVertical.y += gravedad * Time.deltaTime;
         controller.Move(velocidadVertical * Time.deltaTime);
     }   
-
 }
